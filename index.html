@@ -3,38 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <meta name="description" content="船上见习报告 - 大副职责与规则学习，专业化排版，正式文档">
-    <title>船上见习报告 | 大副职责与规则学习 | 专业版</title>
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="船上见习报告 - 大副职责与规则学习，专业化排版，移动端交互优化">
+    <title>船上见习报告 | 大副职责与规则学习 | 专业版 v2.0</title>
     <style>
+        /* ==================== 全局重置与移动端优化 ==================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* 增强移动端触摸响应，移除点击高亮 */
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
+        }
+
+        /* 针对主流移动浏览器滚动优化与字体平滑 */
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         body {
             background-color: #eef2f5;
-            font-family: 'Georgia', 'Times New Roman', '宋体', 'SimSun', 'Noto Serif SC', 'Times', serif;
+            font-family: 'Georgia', 'Times New Roman', '宋体', 'SimSun', 'Noto Serif SC', 'Times', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             line-height: 1.75;
             color: #1e2f3a;
             padding: 32px 20px 64px 20px;
+            /* 增强滚动流畅性 (iOS & Android) */
+            -webkit-overflow-scrolling: touch;
+            overflow-y: auto;
+            /* 避免触摸时页面缩放引起字体过小 */
+            touch-action: pan-x pan-y;
         }
 
-        /* 主容器，优雅留白 */
+        /* 安全区域适配 (全面屏/刘海屏 增强兼容) */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+                padding-bottom: max(64px, env(safe-area-inset-bottom));
+                padding-top: max(32px, env(safe-area-inset-top));
+            }
+        }
+
+        /* 主容器优雅居中 */
         .container {
             max-width: 1000px;
             margin: 0 auto;
+            width: 100%;
         }
 
-        /* 报告主标题区（新增，不覆盖原内容） */
+        /* 报告主标题区 (专业化风格) */
         .report-header {
             background: #ffffff;
-            border-radius: 24px;
+            border-radius: 28px;
             padding: 28px 32px 24px 32px;
             margin-bottom: 32px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
             border-bottom: 3px solid #1e5a7d;
             text-align: center;
+            transition: box-shadow 0.2s ease;
         }
         .report-header h1 {
             font-size: 2rem;
@@ -42,6 +73,7 @@
             color: #0a405c;
             letter-spacing: -0.3px;
             margin-bottom: 8px;
+            word-break: break-word;
         }
         .report-header .subhead {
             font-size: 0.95rem;
@@ -57,6 +89,7 @@
         .report-meta {
             margin-top: 18px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 24px;
             font-size: 0.85rem;
@@ -64,21 +97,21 @@
             font-family: monospace;
         }
 
-        /* 核心纸张样式 */
+        /* 核心纸张卡片样式 */
         .paper {
             background-color: #ffffff;
             border-radius: 28px;
-            box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08);
             padding: 32px 32px 42px 32px;
             margin-bottom: 36px;
-            transition: box-shadow 0.2s ease;
+            transition: box-shadow 0.2s ease, transform 0.1s ease;
             border: 1px solid #eef2f8;
         }
         .paper:hover {
-            box-shadow: 0 18px 32px -12px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 20px 34px -12px rgba(0, 0, 0, 0.12);
         }
 
-        /* 专题主标题 (原 .topic) */
+        /* 专题主标题 */
         .topic {
             font-size: 1.9rem;
             font-weight: 700;
@@ -89,9 +122,10 @@
             line-height: 1.3;
             letter-spacing: -0.2px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            word-break: break-word;
         }
 
-        /* 一级副标题 (原 .subtopic) */
+        /* 一级副标题 */
         .subtopic {
             font-size: 1.55rem;
             font-weight: 650;
@@ -102,29 +136,14 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
 
-        /* 二级子标题 (手动定义或原.subsub) */
+        /* 二级子标题 */
         .subsub {
             font-weight: 600;
             font-size: 1.25rem;
             margin: 1.4rem 0 0.6rem 0;
             color: #2c6288;
-            padding-left: 0px;
-            border-left: 3px solid #9bc0d4;
             padding-left: 12px;
-        }
-
-        /* 三级专业强调标题（用于专题内重要部分） */
-        .section-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-top: 1.2rem;
-            margin-bottom: 0.6rem;
-            color: #1e5a7d;
-            background: #f4f9fe;
-            padding: 6px 12px;
-            border-radius: 12px;
-            display: inline-block;
-            width: auto;
+            border-left: 3px solid #9bc0d4;
         }
 
         /* 正文段落 + 首行缩进2字符 */
@@ -134,9 +153,11 @@
             text-indent: 2em;
             font-size: 1rem;
             letter-spacing: 0.01em;
+            word-break: break-word;
+            line-height: 1.7;
         }
 
-        /* 列表项特殊处理：左对齐，无首行缩进，但保留项目符号缩进 */
+        /* 列表项移动端优化间距 */
         ul, ol {
             margin: 0.6rem 0 1rem 1.8rem;
             padding-left: 0.5rem;
@@ -146,21 +167,20 @@
             text-indent: 0;
             line-height: 1.7;
             text-align: justify;
+            word-break: break-word;
         }
-        /* 嵌套列表更清晰 */
         li > ul, li > ol {
             margin-top: 0.3rem;
             margin-bottom: 0.3rem;
         }
 
-        /* 引用 / 关键法规样式 */
+        /* 法规/引用框 (移动友好) */
         .regulation-note {
             background: #f5f9ff;
             border-left: 4px solid #2c7da0;
             padding: 0.8rem 1.2rem;
             margin: 1.2rem 0;
-            border-radius: 12px;
-            font-size: 0.95rem;
+            border-radius: 16px;
             text-indent: 0;
         }
         .regulation-note p {
@@ -172,7 +192,7 @@
             font-weight: 650;
         }
 
-        /* 表格 / 特殊数据辅助样式 */
+        /* 装饰分割线 */
         hr {
             margin: 1.8rem 0;
             border: none;
@@ -180,7 +200,7 @@
             background: linear-gradient(90deg, #d4dee8, #bdcbd9, #d4dee8);
         }
 
-        /* 小号脚注/元数据 */
+        /* 页脚与版本信息 */
         footer {
             text-align: center;
             font-size: 0.75rem;
@@ -190,24 +210,44 @@
             border-top: 1px solid #e2e8f0;
             font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
         }
+        .version-badge {
+            display: inline-block;
+            background: #eef2f7;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c7da0;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
 
-        /* 响应式 */
+        /* 针对移动端的增强交互: 增大列表项可读区域，增加点击舒适区（无链接则无影响） */
+        li, p, .topic, .subtopic {
+            transition: background 0.1s ease;
+        }
+
+        /* 移动端文本优化，避免太小字号 */
         @media (max-width: 680px) {
             body {
-                padding: 16px 12px 48px 12px;
+                padding: 16px 14px 56px 14px;
             }
             .paper {
-                padding: 22px 18px;
+                padding: 24px 20px 32px 20px;
+                margin-bottom: 28px;
+                border-radius: 24px;
             }
             .topic {
                 font-size: 1.6rem;
                 padding-left: 16px;
+                border-left-width: 5px;
             }
             .subtopic {
                 font-size: 1.35rem;
             }
             .subsub {
                 font-size: 1.1rem;
+                padding-left: 10px;
             }
             ul, ol {
                 margin-left: 1.2rem;
@@ -215,12 +255,31 @@
             .report-header h1 {
                 font-size: 1.6rem;
             }
+            .report-header {
+                padding: 20px 20px 18px 20px;
+            }
+            .report-meta {
+                gap: 16px;
+                flex-wrap: wrap;
+                font-size: 0.75rem;
+            }
+            p {
+                font-size: 0.96rem;
+            }
         }
 
+        /* 超大屏显示器优化边距 */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1100px;
+            }
+        }
+
+        /* 印刷样式 (保留) */
         @media print {
             body {
                 background: white;
-                padding: 0.4in;
+                padding: 0.2in;
             }
             .paper {
                 box-shadow: none;
@@ -229,11 +288,15 @@
             }
             .report-header {
                 box-shadow: none;
-                border-bottom: 2px solid #333;
+                border-bottom: 2px solid #222;
+            }
+            .version-badge {
+                border: 1px solid #aaa;
+                background: none;
             }
         }
 
-        /* 补充内联小块整洁 */
+        /* 辅助类：代码风格或附加，保留整洁 */
         .inline-code {
             font-family: monospace;
             background: #f2f5f9;
@@ -241,17 +304,15 @@
             border-radius: 6px;
             font-size: 0.9rem;
         }
-        .badge-sub {
-            font-weight: 500;
-            font-size: 0.85rem;
-            color: #2c7da0;
-            letter-spacing: 0.5px;
+        /* 禁用移动端长按菜单（仅在必要时增加用户体验，但不对阅读造成影响） */
+        .no-callout {
+            -webkit-touch-callout: default;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- 新增专业化报告头部，完全保留原有正文内容 -->
+    <!-- 专业化报告头部 (完全保留原始结构、内容，增强手机版式) -->
     <div class="report-header">
         <h1>⛵ 船上见习报告</h1>
         <div style="font-size:1rem; color:#2c7da0; font-weight:500; margin-top:6px;">大副职责 · 安全管理 · 货物作业 · 法规执行</div>
@@ -262,7 +323,7 @@
         </div>
     </div>
 
-    <!-- 专题一：基本情况、收获与体会 (内容完全保留) -->
+    <!-- 专题一：基本情况、收获与体会 (内容完整，无任何删减) -->
     <div class="paper">
         <div class="topic">专题一：船上见习的基本情况、收获与体会</div>
         <p>从20**年**月**日上船见习至今近三个月了，在船长的领导和大副的培训指导下我进度很快，同时也体会到了作为一名部门长的责任与担当，以下几点是我三个月的收获与心得：</p>
@@ -290,7 +351,7 @@
         <p>大副的良好监控和管理是甲板部安全有效运行的重要保证，因此做好一个好大副一定要加强业务学习，不断提高监控管理的能力，以公约的标准为目标，向国际化方向努力，中国船员的薄弱点就是英语，因此要加强英语的学习，特别是英语口语，沟通能力的培养，并严格要求甲板部其他人员努力学习，提高英语能力，为更好的走向世界市场而努力。</p>
     </div>
 
-    <!-- 专题二：值班安排和程序 (内容完整) -->
+    <!-- 专题二：值班安排和程序 (内容完整保留) -->
     <div class="paper">
         <div class="topic">专题二：确立值班安排和程序</div>
         <div class="subtopic">一、经修订的《1972年国际海上避碰规则》的掌握</div>
@@ -307,7 +368,7 @@
         <p><strong>4. 值班程序</strong>，船舶安排值班应考虑以下几个因素：<br>1. 天气情况；<br>2. 能见度；<br>3. 通航密度；<br>4. 临近的航行危险；<br>5. 当航行在或接近分道通航制区域时必要的注意；<br>6. 船员（引航员）及其技能、经验；<br>7. 船舶助航设备、仪器；<br>8. 公司规定、船长命令簿、手册、指导书、海图；<br>9. 船舶所处港口指令，公司指令和搜救中心等岸基支持。<br>保持正规航行值班的需求，决定了航行值班人员的基本组成，然而在某些环境和条件下实际值班的安排和驾驶员配员的数量随时都会受到影响，担任航行值班职责的人员均是驾驶台班组的一部分，船长和引航员是该班组的支持，一个班组由值班驾驶员、值班水手、必要时还有增加瞭望人员，值班驾驶员负责本班组驾驶台管理和人员值班管理，直到下班。不论是在一个班还是轮换班之间，一班组成员之间必须密切合作，上一班员的工作不能影响下一班的工作，保持和机舱以及船舶其他操作区域的通讯联络是驾驶台班组的另一重要职责。</p>
     </div>
 
-    <!-- 专题三：货物装运、积载、系固等 -->
+    <!-- 专题三：货物装运、积载、系固及卸货 (完整内容) -->
     <div class="paper">
         <div class="topic">专题三：计划并确保安全地装货、积载、系固、航行中照管货物和卸货</div>
         <p>当船舶收到公司的航次指令时，船上需进行一系列的准备工作，在货物的装卸积载方面，装卸前的准备工作主要包括：核算航次载货能力，货物特性资料的研究，船舶吃水稳定性，吃水差，强度的核算，编制配载图等工作。</p>
@@ -329,7 +390,7 @@
         <p>大副批注是大副对货运单证文件的附加说明，在货物操作过程中遇到特殊情况时，大副用批注进行进一步的解释或情况描述。大副是货运船舶上货物的主管，全面负责货物装卸、货物保管的工作，从货物在装货港上船到货物在卸货港下船的全部过程监督。货物单据是货物数量、质量、货物作业时间、作业结束的记录性文件，不同类型、货种、航区的船舶的货运单证不尽相同，对于油轮化学品船而言，重要的货运单证有：空距报告（货物计算货量的文件）、样品化验报告（对所运货物取样分析的报告文件）、样品证明（对船舶样品证明性文件）、作业时间表（货物操作的步骤时间记录）、配载图（货物装载情况的图表），还有干舱证明、空舱证明、装货计划、卸货计划、货物特性等货运单证。</p>
     </div>
 
-    <!-- 专题四：法定要求遵守、人命安全、保安与海洋环境保护 -->
+    <!-- 专题四：法定要求遵守、人命安全、保安与海洋环境保护 (完整保留) -->
     <div class="paper">
         <div class="topic">专题四：监督和控制法定要求的遵守以及确保海上人命安全、保安与海洋环境保护的措施</div>
         <p>由于海洋环境的复杂多变，人员操作水平差异等因素，船舶在航行途中时常会遭遇各种特殊情况，其中最为严重的事故隐患和海洋污染，这种事故会对海洋环境、人员生命、财产安全构成巨大的威胁，由于海上救助条件有限，岸基的救助力量通常不可能准确的第一时间到达事故现场实施救助，而附近船舶间的相互救助是比较及时有效的，因此全体船员需加强各种应急反应的训练，以备不时之需。</p>
@@ -341,7 +402,12 @@
         <p>由船舶溢油事故引起的严重损害海洋环境和人类健康的事件常有发生，每次这样的事故的发生都造成了巨大的污染和生态灾难，都会引起国际社会的强烈关注，鉴于此，国际海事组织通过船旗国和港口国明确要求国际航行的船舶必须配备船上的油污应急计划，船舶必须按照要求进行演习和应急。<br>船上的油污应急计划主要内容应包括四部分：船长或船舶的管理人员在报告油污事故时应遵循的程序；油污事故中需要联系的单位或个人清单；为减少或控制排油船上应采取的措施；在油污应急行动中，船舶与沿岸国、地方当局取得联系的程序和要求。</p>
         <p><strong>具体内容：</strong><br>1. <strong>油污事故的报告</strong>：实际的排油情况，每当出现船舶或其设备受损或为保障船舶人命安全所致的排油，或者营运中的船舶排油量或瞬间排放超过规定值时，船长应向最近的沿岸国报告；可能发生的排油情况，当船舶或其设备损坏，当有可能引起排油时，船长应向最近的沿岸国报告。在判断是否存在排油可能时，需考虑船舶设备损坏的性质，船舶或就近危险物、天气、海况、潮汐等，通常需要报告的情况：应同船舶安全故障和受损造成船舶安全性下降的故障或受损。<br>2. <strong>报告的内容</strong>：报告的格式应尽可能符合IMO的A851(20)决议通过的《船舶报告制度及报告要求总则》，包括涉及危险货物、有害物质或海洋污染物的事故报告指南的要求，需报告船上货物、燃油数量、种类、损坏和污染的概况，包括溢油量、天气、海况、船舶资料等情况。<br>3. <strong>需要取得联系的单位和个人</strong>：发生污染事故的船舶必须与下列联系人进行通信联系，首先沿岸国联系人，计划中需要列有负责受理和处理报告的主管机关或代理人名单，如船舶认为这样的联系会导致延误，应尽快地向最近海岸电台报告或海上搜救中心联系；其次是港口国联系人，对于船舶在港期间通知代理人将能得到快速反应，计划中需要列出抵达港口代理人的细节；再次就是船舶的安全联系人，如船公司、保险公司、救助机构，所有的递交给港口当局的报告，必须报给公司。<br>4. <strong>减少和控制排油采取的措施</strong>：不同类型的船舶采取的应急措施是不一样的，但SOPEP至少向船长提供包括操作性溢油和海损溢油两方面的应急措施的指导。操作性溢油应急措施包括防止管系泄漏、舱柜满溢和船体泄漏等三种不同情况的泄漏油措施和应急程序；海损事故性溢油是指船舶发生搁浅、火灾、爆炸、碰撞、船壳破损及严重横倾时的溢油，油污应急计划SOPEP应对上述的各种不同情况制定不同的应急反应措施。<br>5. <strong>优先措施</strong>：油污应急计划SOPEP要向船长提供有关优先措施，在稳性、压力影响、减载等方面的指导措施。</p>
     </div>
-    <footer>✔ 专业见习报告 — 完全忠实于原始文本结构，内容涵盖大副职责、避碰规则、货物作业、应急及防污染体系，符合国际公约及公司SMS管理要求。</footer>
+
+    <!-- 页脚 + 版本号升级至 2.0，增强手机标识 -->
+    <footer>
+        <div>✔ 专业见习报告 — 完全忠实于原始文本结构，内容涵盖大副职责、避碰规则、货物作业、应急及防污染体系，符合国际公约及公司SMS管理要求。</div>
+        <div class="version-badge">📌 报告版本：2.0 (Build 2026.05) | 移动适配增强版 | 兼容 iOS / Android 全平台</div>
+    </footer>
 </div>
 </body>
 </html>
