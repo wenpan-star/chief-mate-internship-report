@@ -1,106 +1,268 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>船上见习报告 - 大副职责与规则学习</title>
+    <meta name="description" content="船上见习报告 - 大副职责与规则学习，专业化排版，正式文档">
+    <title>船上见习报告 | 大副职责与规则学习 | 专业版</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background-color: #f0f4f9;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', sans-serif;
-            line-height: 1.7;
-            color: #1e2f3e;
-            padding: 24px 16px 56px 16px;
+            background-color: #eef2f5;
+            font-family: 'Georgia', 'Times New Roman', '宋体', 'SimSun', 'Noto Serif SC', 'Times', serif;
+            line-height: 1.75;
+            color: #1e2f3a;
+            padding: 32px 20px 64px 20px;
         }
+
+        /* 主容器，优雅留白 */
         .container {
-            max-width: 780px;
+            max-width: 1000px;
             margin: 0 auto;
         }
+
+        /* 报告主标题区（新增，不覆盖原内容） */
+        .report-header {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 28px 32px 24px 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            border-bottom: 3px solid #1e5a7d;
+            text-align: center;
+        }
+        .report-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0a405c;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+        .report-header .subhead {
+            font-size: 0.95rem;
+            color: #4f6f8a;
+            border-top: 1px solid #e2e8f0;
+            display: inline-block;
+            padding-top: 8px;
+            margin-top: 8px;
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .report-meta {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 0.85rem;
+            color: #3e6b8c;
+            font-family: monospace;
+        }
+
+        /* 核心纸张样式 */
         .paper {
             background-color: #ffffff;
             border-radius: 28px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-            padding: 28px 22px 36px 22px;
-            margin-bottom: 28px;
+            box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.08);
+            padding: 32px 32px 42px 32px;
+            margin-bottom: 36px;
+            transition: box-shadow 0.2s ease;
+            border: 1px solid #eef2f8;
         }
+        .paper:hover {
+            box-shadow: 0 18px 32px -12px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 专题主标题 (原 .topic) */
         .topic {
-            font-size: 1.85rem;
+            font-size: 1.9rem;
             font-weight: 700;
             color: #134b73;
-            border-left: 5px solid #2c7da0;
-            padding-left: 18px;
-            margin-bottom: 1.2rem;
+            border-left: 6px solid #2c7da0;
+            padding-left: 22px;
+            margin-bottom: 1.5rem;
             line-height: 1.3;
+            letter-spacing: -0.2px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
+
+        /* 一级副标题 (原 .subtopic) */
         .subtopic {
             font-size: 1.55rem;
             font-weight: 650;
-            margin: 1.4rem 0 0.8rem 0;
-            color: #1e5a7d;
+            margin: 1.8rem 0 1rem 0;
+            color: #1a5a7a;
             border-bottom: 2px solid #dce5ef;
             padding-bottom: 6px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
+
+        /* 二级子标题 (手动定义或原.subsub) */
         .subsub {
             font-weight: 600;
-            font-size: 1.2rem;
-            margin: 1rem 0 0.4rem 0;
+            font-size: 1.25rem;
+            margin: 1.4rem 0 0.6rem 0;
             color: #2c6288;
+            padding-left: 0px;
+            border-left: 3px solid #9bc0d4;
+            padding-left: 12px;
         }
-        p, li, .indent-text {
-            text-indent: 2em;  /* 首行缩进两格 */
+
+        /* 三级专业强调标题（用于专题内重要部分） */
+        .section-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 1.2rem;
+            margin-bottom: 0.6rem;
+            color: #1e5a7d;
+            background: #f4f9fe;
+            padding: 6px 12px;
+            border-radius: 12px;
+            display: inline-block;
+            width: auto;
         }
+
+        /* 正文段落 + 首行缩进2字符 */
         p {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.9rem;
             text-align: justify;
+            text-indent: 2em;
+            font-size: 1rem;
+            letter-spacing: 0.01em;
         }
+
+        /* 列表项特殊处理：左对齐，无首行缩进，但保留项目符号缩进 */
         ul, ol {
-            margin: 0.5rem 0 0.8rem 1.2rem;
+            margin: 0.6rem 0 1rem 1.8rem;
             padding-left: 0.5rem;
         }
         li {
-            margin: 0.4rem 0;
-            text-indent: 0;   /* 列表项内部段落如需缩进单独处理，但这里列表项文字一般不需额外缩进，保持左对齐 */
+            margin: 0.5rem 0;
+            text-indent: 0;
+            line-height: 1.7;
+            text-align: justify;
         }
-        /* 对于多级列表中的段落，保持一致 */
-        .no-indent {
+        /* 嵌套列表更清晰 */
+        li > ul, li > ol {
+            margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* 引用 / 关键法规样式 */
+        .regulation-note {
+            background: #f5f9ff;
+            border-left: 4px solid #2c7da0;
+            padding: 0.8rem 1.2rem;
+            margin: 1.2rem 0;
+            border-radius: 12px;
+            font-size: 0.95rem;
             text-indent: 0;
         }
-        .keep-format {
-            white-space: normal;
+        .regulation-note p {
+            margin-bottom: 0.4rem;
+            text-indent: 0;
         }
+        strong, b {
+            color: #0c4e6e;
+            font-weight: 650;
+        }
+
+        /* 表格 / 特殊数据辅助样式 */
         hr {
-            margin: 1.2rem 0;
+            margin: 1.8rem 0;
             border: none;
             height: 1px;
-            background: #e2e8f0;
+            background: linear-gradient(90deg, #d4dee8, #bdcbd9, #d4dee8);
         }
-        @media (max-width: 550px) {
+
+        /* 小号脚注/元数据 */
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6f8daa;
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* 响应式 */
+        @media (max-width: 680px) {
+            body {
+                padding: 16px 12px 48px 12px;
+            }
             .paper {
                 padding: 22px 18px;
             }
             .topic {
                 font-size: 1.6rem;
+                padding-left: 16px;
             }
             .subtopic {
                 font-size: 1.35rem;
             }
+            .subsub {
+                font-size: 1.1rem;
+            }
+            ul, ol {
+                margin-left: 1.2rem;
+            }
+            .report-header h1 {
+                font-size: 1.6rem;
+            }
         }
-        footer {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #6b7b8f;
-            margin-top: 16px;
+
+        @media print {
+            body {
+                background: white;
+                padding: 0.4in;
+            }
+            .paper {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+            .report-header {
+                box-shadow: none;
+                border-bottom: 2px solid #333;
+            }
+        }
+
+        /* 补充内联小块整洁 */
+        .inline-code {
+            font-family: monospace;
+            background: #f2f5f9;
+            padding: 0.1rem 0.3rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .badge-sub {
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #2c7da0;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- 专题一 -->
+    <!-- 新增专业化报告头部，完全保留原有正文内容 -->
+    <div class="report-header">
+        <h1>⛵ 船上见习报告</h1>
+        <div style="font-size:1rem; color:#2c7da0; font-weight:500; margin-top:6px;">大副职责 · 安全管理 · 货物作业 · 法规执行</div>
+        <div class="subhead">实习总结 | 驾驶台资源管理 | 体系化学习记录</div>
+        <div class="report-meta">
+            <span>📅 见习周期：20**年**月 — 20**年**月</span>
+            <span>⚓ 见习岗位：甲板实习生 / 见习大副</span>
+        </div>
+    </div>
+
+    <!-- 专题一：基本情况、收获与体会 (内容完全保留) -->
     <div class="paper">
         <div class="topic">专题一：船上见习的基本情况、收获与体会</div>
         <p>从20**年**月**日上船见习至今近三个月了，在船长的领导和大副的培训指导下我进度很快，同时也体会到了作为一名部门长的责任与担当，以下几点是我三个月的收获与心得：</p>
@@ -128,7 +290,7 @@
         <p>大副的良好监控和管理是甲板部安全有效运行的重要保证，因此做好一个好大副一定要加强业务学习，不断提高监控管理的能力，以公约的标准为目标，向国际化方向努力，中国船员的薄弱点就是英语，因此要加强英语的学习，特别是英语口语，沟通能力的培养，并严格要求甲板部其他人员努力学习，提高英语能力，为更好的走向世界市场而努力。</p>
     </div>
 
-    <!-- 专题二 -->
+    <!-- 专题二：值班安排和程序 (内容完整) -->
     <div class="paper">
         <div class="topic">专题二：确立值班安排和程序</div>
         <div class="subtopic">一、经修订的《1972年国际海上避碰规则》的掌握</div>
@@ -145,7 +307,7 @@
         <p><strong>4. 值班程序</strong>，船舶安排值班应考虑以下几个因素：<br>1. 天气情况；<br>2. 能见度；<br>3. 通航密度；<br>4. 临近的航行危险；<br>5. 当航行在或接近分道通航制区域时必要的注意；<br>6. 船员（引航员）及其技能、经验；<br>7. 船舶助航设备、仪器；<br>8. 公司规定、船长命令簿、手册、指导书、海图；<br>9. 船舶所处港口指令，公司指令和搜救中心等岸基支持。<br>保持正规航行值班的需求，决定了航行值班人员的基本组成，然而在某些环境和条件下实际值班的安排和驾驶员配员的数量随时都会受到影响，担任航行值班职责的人员均是驾驶台班组的一部分，船长和引航员是该班组的支持，一个班组由值班驾驶员、值班水手、必要时还有增加瞭望人员，值班驾驶员负责本班组驾驶台管理和人员值班管理，直到下班。不论是在一个班还是轮换班之间，一班组成员之间必须密切合作，上一班员的工作不能影响下一班的工作，保持和机舱以及船舶其他操作区域的通讯联络是驾驶台班组的另一重要职责。</p>
     </div>
 
-    <!-- 专题三 -->
+    <!-- 专题三：货物装运、积载、系固等 -->
     <div class="paper">
         <div class="topic">专题三：计划并确保安全地装货、积载、系固、航行中照管货物和卸货</div>
         <p>当船舶收到公司的航次指令时，船上需进行一系列的准备工作，在货物的装卸积载方面，装卸前的准备工作主要包括：核算航次载货能力，货物特性资料的研究，船舶吃水稳定性，吃水差，强度的核算，编制配载图等工作。</p>
@@ -167,7 +329,7 @@
         <p>大副批注是大副对货运单证文件的附加说明，在货物操作过程中遇到特殊情况时，大副用批注进行进一步的解释或情况描述。大副是货运船舶上货物的主管，全面负责货物装卸、货物保管的工作，从货物在装货港上船到货物在卸货港下船的全部过程监督。货物单据是货物数量、质量、货物作业时间、作业结束的记录性文件，不同类型、货种、航区的船舶的货运单证不尽相同，对于油轮化学品船而言，重要的货运单证有：空距报告（货物计算货量的文件）、样品化验报告（对所运货物取样分析的报告文件）、样品证明（对船舶样品证明性文件）、作业时间表（货物操作的步骤时间记录）、配载图（货物装载情况的图表），还有干舱证明、空舱证明、装货计划、卸货计划、货物特性等货运单证。</p>
     </div>
 
-    <!-- 专题四 -->
+    <!-- 专题四：法定要求遵守、人命安全、保安与海洋环境保护 -->
     <div class="paper">
         <div class="topic">专题四：监督和控制法定要求的遵守以及确保海上人命安全、保安与海洋环境保护的措施</div>
         <p>由于海洋环境的复杂多变，人员操作水平差异等因素，船舶在航行途中时常会遭遇各种特殊情况，其中最为严重的事故隐患和海洋污染，这种事故会对海洋环境、人员生命、财产安全构成巨大的威胁，由于海上救助条件有限，岸基的救助力量通常不可能准确的第一时间到达事故现场实施救助，而附近船舶间的相互救助是比较及时有效的，因此全体船员需加强各种应急反应的训练，以备不时之需。</p>
@@ -179,7 +341,7 @@
         <p>由船舶溢油事故引起的严重损害海洋环境和人类健康的事件常有发生，每次这样的事故的发生都造成了巨大的污染和生态灾难，都会引起国际社会的强烈关注，鉴于此，国际海事组织通过船旗国和港口国明确要求国际航行的船舶必须配备船上的油污应急计划，船舶必须按照要求进行演习和应急。<br>船上的油污应急计划主要内容应包括四部分：船长或船舶的管理人员在报告油污事故时应遵循的程序；油污事故中需要联系的单位或个人清单；为减少或控制排油船上应采取的措施；在油污应急行动中，船舶与沿岸国、地方当局取得联系的程序和要求。</p>
         <p><strong>具体内容：</strong><br>1. <strong>油污事故的报告</strong>：实际的排油情况，每当出现船舶或其设备受损或为保障船舶人命安全所致的排油，或者营运中的船舶排油量或瞬间排放超过规定值时，船长应向最近的沿岸国报告；可能发生的排油情况，当船舶或其设备损坏，当有可能引起排油时，船长应向最近的沿岸国报告。在判断是否存在排油可能时，需考虑船舶设备损坏的性质，船舶或就近危险物、天气、海况、潮汐等，通常需要报告的情况：应同船舶安全故障和受损造成船舶安全性下降的故障或受损。<br>2. <strong>报告的内容</strong>：报告的格式应尽可能符合IMO的A851(20)决议通过的《船舶报告制度及报告要求总则》，包括涉及危险货物、有害物质或海洋污染物的事故报告指南的要求，需报告船上货物、燃油数量、种类、损坏和污染的概况，包括溢油量、天气、海况、船舶资料等情况。<br>3. <strong>需要取得联系的单位和个人</strong>：发生污染事故的船舶必须与下列联系人进行通信联系，首先沿岸国联系人，计划中需要列有负责受理和处理报告的主管机关或代理人名单，如船舶认为这样的联系会导致延误，应尽快地向最近海岸电台报告或海上搜救中心联系；其次是港口国联系人，对于船舶在港期间通知代理人将能得到快速反应，计划中需要列出抵达港口代理人的细节；再次就是船舶的安全联系人，如船公司、保险公司、救助机构，所有的递交给港口当局的报告，必须报给公司。<br>4. <strong>减少和控制排油采取的措施</strong>：不同类型的船舶采取的应急措施是不一样的，但SOPEP至少向船长提供包括操作性溢油和海损溢油两方面的应急措施的指导。操作性溢油应急措施包括防止管系泄漏、舱柜满溢和船体泄漏等三种不同情况的泄漏油措施和应急程序；海损事故性溢油是指船舶发生搁浅、火灾、爆炸、碰撞、船壳破损及严重横倾时的溢油，油污应急计划SOPEP应对上述的各种不同情况制定不同的应急反应措施。<br>5. <strong>优先措施</strong>：油污应急计划SOPEP要向船长提供有关优先措施，在稳性、压力影响、减载等方面的指导措施。</p>
     </div>
-    <footer>完全忠实原文序号格式（一、1、(1)等），校正错别字，去除重复，正文首行缩进两格</footer>
+    <footer>✔ 专业见习报告 — 完全忠实于原始文本结构，内容涵盖大副职责、避碰规则、货物作业、应急及防污染体系，符合国际公约及公司SMS管理要求。</footer>
 </div>
 </body>
 </html>
